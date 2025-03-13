@@ -172,3 +172,19 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+
+/postgres/data/*
+docs/*
+!docs/accounts_models.png
+
+
+
+core/newchat/management/commands/*
+
+___*.py
+____*.py
+___*.txt
+
+/Json-postman/
