@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "django_filters",
     "drf_yasg",
+    "accounts",
+    # "blog",
 ]
 
 MIDDLEWARE = [
@@ -194,3 +196,7 @@ CACHES = {
         }
     }
 }
+
+
+# Custom User model
+AUTH_USER_MODEL = 'accounts.User'
