@@ -3,7 +3,7 @@ from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 from accounts.models import Profile
@@ -44,15 +44,16 @@ class RedirectCBV(RedirectView):
     url = "https://www.itmeter.ir"
     
 
-class PostListView(LoginRequiredMixin, ListView): # it's different with class PostListView(ListView, LoginRequiredMixin):
+class PostListView(PermissionRequiredMixin ,LoginRequiredMixin, ListView): # it's different with class PostListView(ListView, LoginRequiredMixin):
+    permission_required = 'blog.view_post'
     model = Post # OR queryset = Post.objects.all() OR def get_queryset(self)
     context_object_name = 'posts'
     # paginate_by = 2
-    # ordering = "-id"
+    ordering = "-id"
     
-    def get_queryset(self):
-        posts = Post.objects.filter(status=True).order_by('-id')
-        return posts
+    # def get_queryset(self):
+    #     posts = Post.objects.filter(status=True).order_by('-id')
+    #     return posts
         
 
 class PostDetailView(DetailView):
