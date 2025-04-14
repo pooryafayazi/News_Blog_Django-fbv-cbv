@@ -38,11 +38,13 @@ class RedirectCBV(RedirectView):
     
 
 class PostList(ListView):
-    # model = Post OR queryset = Post.objects.all() OR def get_queryset(self)
+    model = Post # OR queryset = Post.objects.all() OR def get_queryset(self)
     context_object_name = 'posts'
+    paginate_by = 2
+    # ordering = "-id"
     
     def get_queryset(self):
-        posts = Post.objects.filter(status=True)
+        posts = Post.objects.filter(status=True).order_by('-id')
         return posts
         
         
