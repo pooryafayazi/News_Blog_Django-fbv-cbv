@@ -23,4 +23,8 @@ urlpatterns = [
     path('post/<int:pk>/edit/', views.PostEditView.as_view(), name='post-edit'),
     path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post-delete'),
     
+    # 5
+    path('post-httpresponse/', views.post_list_view, name='httpresponse-post-list'),
+    path('post-api-view/', views.api_post_list_view, name='api-post-list'),
+    
 ]
