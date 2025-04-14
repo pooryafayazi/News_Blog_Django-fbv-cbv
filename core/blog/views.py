@@ -99,7 +99,10 @@ class PostDeleteView(DeleteView):
 def post_list_view(request):
     return HttpResponse("ok")
 
-
+"""
 @api_view()
 def api_post_list_view(request):
     return Response({"Name":"Poorya"})
+"""
+
+
