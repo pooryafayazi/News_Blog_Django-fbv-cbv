@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic import ListView, DetailView, FormView, CreateView
+from django.views.generic import ListView, DetailView, FormView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 
@@ -77,5 +77,17 @@ class PostCreateView(CreateView):
         profile = get_object_or_404(Profile, user=self.request.user)
         form.instance.author = profile
         return super().form_valid(form)
+
+
+class PostEditView(UpdateView):
+    model = Post
+    form_class = PostForm
+    success_url	= '/blog/post/'
+    
+
+
+
+
+
 
 

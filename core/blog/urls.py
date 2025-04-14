@@ -20,5 +20,6 @@ urlpatterns = [
     path('post/<int:pk>/', views.PostDetailView.as_view(), name='post-detail'),
     path('post/create-by-formview/', views.PostCreateFormView.as_view(), name='post-create-by-formview'),
     path('post/create-by-creatview/', views.PostCreateView.as_view(), name='post-create-by-creatview'),
+    path('post/<int:pk>/edit/', views.PostEditView.as_view(), name='post-edit'),
     
 ]
