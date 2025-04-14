@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic import ListView, DetailView, FormView
+from django.views.generic import ListView, DetailView, FormView, CreateView
+from django.urls import reverse_lazy
 
 from .models import Post
 from .forms import PostForm
@@ -54,7 +55,7 @@ class PostDetailView(DetailView):
     model = Post
     
 
-class PostCreateView(FormView):
+class PostCreateFormView(FormView):
     template_name = "contact.html"
     form_class = PostForm
     success_url = "/blog/post/"
@@ -64,8 +65,10 @@ class PostCreateView(FormView):
         return super().form_valid(form)
         
 
-
-
+class PostCreateView(CreateView):
+    model = Post
+    fields = ["author", "title", "content", "status", "category", "published_date"] # or form_class = PostForm
+    success_url	= reverse_lazy('blog:post-list') # or  success_url	= '/blog/post/'
 
 
 
