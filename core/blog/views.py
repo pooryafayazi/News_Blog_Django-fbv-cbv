@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, FormView
 
 from .models import Post
+from .forms import PostForm
 
 
 def indexView(request):
@@ -11,7 +12,6 @@ def indexView(request):
     """
     context = {"name": 'function base view'}
     return render(request, 'index.html', context)
-
 
 
 class IndexTemplateView(TemplateView):
@@ -27,11 +27,13 @@ class IndexTemplateView(TemplateView):
         context['post'] = Post.objects.all()
         return context
 
+
 def redirectFBV(request):
     """
     redirect by function base view
     """
     return redirect('https://www.itmeter.ir')
+
 
 class RedirectCBV(RedirectView):
     url = "https://www.itmeter.ir"
@@ -40,7 +42,7 @@ class RedirectCBV(RedirectView):
 class PostListView(ListView):
     model = Post # OR queryset = Post.objects.all() OR def get_queryset(self)
     context_object_name = 'posts'
-    paginate_by = 2
+    # paginate_by = 2
     # ordering = "-id"
     
     def get_queryset(self):
@@ -52,7 +54,15 @@ class PostDetailView(DetailView):
     model = Post
     
 
-
+class PostCreateView(FormView):
+    template_name = "contact.html"
+    form_class = PostForm
+    success_url = "/blog/post/"
+    
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+        
 
 
 
