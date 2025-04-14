@@ -14,5 +14,7 @@ urlpatterns = [
     
     # custum redirect 
     path('go-to-itmeter-fbv/', views.redirectFBV, name='redirect-fbv'),
-    path('go-to-itmeter-cbv/', views.RedirectCBV.as_view(), name='redirect-cbv')
+    path('go-to-itmeter-cbv/', views.RedirectCBV.as_view(), name='redirect-cbv'),
+    
+    path('post/', views.PostList.as_view(), name="post-list"),
 ]

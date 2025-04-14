@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView, RedirectView
+from django.views.generic import ListView
 
 from .models import Post
 
@@ -34,3 +35,15 @@ def redirectFBV(request):
 
 class RedirectCBV(RedirectView):
     url = "https://www.itmeter.ir"
+    
+
+class PostList(ListView):
+    # model = Post OR queryset = Post.objects.all() OR def get_queryset(self)
+    context_object_name = 'posts'
+    
+    def get_queryset(self):
+        posts = Post.objects.filter(status=True)
+        return posts
+        
+        
+        
