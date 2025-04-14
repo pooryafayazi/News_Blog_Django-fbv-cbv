@@ -10,5 +10,9 @@ urlpatterns = [
     path("cbv-index/", TemplateView.as_view(template_name='index.html', extra_context={"name": "class base view"}), name='cbv-index'),
     path("cbv-index-custum/", views.IndexTemplateView.as_view(), name='cbv-index-custum'),
     path('go-to-itmeter/', RedirectView.as_view(url='https://itmeter.ir/'), name='go-to-itmeter'),
-    path('go-to-cbv-index/', RedirectView.as_view(pattern_name="blog:cbv-index"), name='go-to-cbv-index')
+    path('go-to-index-cbv/', RedirectView.as_view(pattern_name="blog:cbv-index"), name='go-to-cbv-index'),
+    
+    # custum redirect 
+    path('go-to-itmeter-fbv/', views.redirectFBV, name='redirect-fbv'),
+    path('go-to-itmeter-cbv/', views.RedirectCBV.as_view(), name='redirect-cbv')
 ]

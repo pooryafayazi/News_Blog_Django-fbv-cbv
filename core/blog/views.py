@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.shortcuts import render, redirect
+from django.views.generic.base import TemplateView, RedirectView
 
 from .models import Post
 
@@ -25,3 +25,12 @@ class IndexTemplateView(TemplateView):
         context['name'] = 'custum class-based view'
         context['post'] = Post.objects.all()
         return context
+
+def redirectFBV(request):
+    """
+    redirect by function base view
+    """
+    return redirect('https://www.itmeter.ir')
+
+class RedirectCBV(RedirectView):
+    url = "https://www.itmeter.ir"
