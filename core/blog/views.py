@@ -5,8 +5,6 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponse
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 
 
 from accounts.models import Profile
