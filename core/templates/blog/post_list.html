@@ -6,18 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>
-        post list
-    </h1>
-    <ol>
-        
+    <h1> post list </h1>
+
+    <ol>        
         {% for post in posts %}
         <li>
-            <h2>{{post.title}}</h2>
+            <a href="{% url 'blog:post-detail' pk=post.id %}"><h2>{{post.id}} - {{post.title}}</h2></a>
             <p>{{post.content}}</p>
         </li>
         {% endfor %}
-        
     </ol>
     <div class="pagination">
         <span class="step-links">

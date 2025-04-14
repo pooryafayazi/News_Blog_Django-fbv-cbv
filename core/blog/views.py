@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView, RedirectView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from .models import Post
 
@@ -37,7 +37,7 @@ class RedirectCBV(RedirectView):
     url = "https://www.itmeter.ir"
     
 
-class PostList(ListView):
+class PostListView(ListView):
     model = Post # OR queryset = Post.objects.all() OR def get_queryset(self)
     context_object_name = 'posts'
     paginate_by = 2
@@ -47,5 +47,16 @@ class PostList(ListView):
         posts = Post.objects.filter(status=True).order_by('-id')
         return posts
         
-        
-        
+
+class PostDetailView(DetailView):
+    model = Post
+    
+
+
+
+
+
+
+
+
+
