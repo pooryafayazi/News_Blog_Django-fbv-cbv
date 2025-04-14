@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.views.generic.base import TemplateView, RedirectView
 from django.views.generic import ListView, DetailView, FormView, CreateView
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 
+from accounts.models import Profile
 from .models import Post
 from .forms import PostForm
 
@@ -67,9 +69,13 @@ class PostCreateFormView(FormView):
 
 class PostCreateView(CreateView):
     model = Post
-    fields = ["author", "title", "content", "status", "category", "published_date"] # or form_class = PostForm
+    fields = ["title", "content", "status", "category", "published_date"] # or form_class = PostForm
     success_url	= reverse_lazy('blog:post-list') # or  success_url	= '/blog/post/'
 
-
+    def form_valid(self, form):        
+        # form.instance.author = self.request.user
+        profile = get_object_or_404(Profile, user=self.request.user)
+        form.instance.author = profile
+        return super().form_valid(form)
 
 
