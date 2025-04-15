@@ -19,11 +19,19 @@ urlpatterns = [
 
     path('post-viewset/', views.PostViewSet.as_view({'get':'list', 'post':'create'}), name='post-viewset'),
     path('post-viewset/<int:pk>/', views.PostViewSet.as_view({'get':'retrieve', 'put':'update', 'patch':'partial_update', 'delete':'destroy'}), name='post-viewset'),
-    # path('', include(router.urls))
+    # path('', include(router.urls))    
+
 ]
 
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
+'''ViewSet
 router.register('post', views.PostViewSet, basename='post')
+urlpatterns = router.urls # All urls created automatically
+'''
+
+'''ModelViewSet'''
+router.register('post', views.PostModelViewSet, basename='post')
+router.register('category', views.CategoryModelViewSet, basename='category')
 urlpatterns = router.urls # All urls created automatically

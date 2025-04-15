@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 
 
 from . import serializers
-from ...models import Post
+from ...models import Post, Category
 
 
 @api_view(["Get", "POST"])
@@ -178,3 +178,15 @@ class PostViewSet(viewsets.ViewSet):
     
     def destroy(self, request, pk=None):
         pass
+
+
+class PostModelViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.PostSerializer
+    queryset = Post.objects.filter(status=True)
+
+
+class CategoryModelViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.CategorySerializer
+    queryset = Category.objects.all()
