@@ -8,12 +8,18 @@ from . import serializers
 from ...models import Post
 
 
-@api_view()
+@api_view(["Get", "POST"])
 def api_post_list(request):
-    posts = Post.objects.filter(status=True)
-    serializer = serializers.PostSerializer(posts, many=True)
-    return Response(serializer.data)
-
+    if request.method == "GET":        
+        posts = Post.objects.filter(status=True)
+        serializer = serializers.PostSerializer(posts, many=True)
+        return Response(serializer.data)
+    elif request.method == "POST":
+        serializer = serializers.PostSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    
 
 @api_view()
 def api_post_detail(request, id):
