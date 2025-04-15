@@ -18,5 +18,8 @@ urlpatterns = [
     path('post-generics/<int:pk>/detail/', views.PostDetailGenericAPIView.as_view(), name='api-post-detail-generics'),
     path('post-generics-allfunction/<int:pk>/detail/', views.PostDetailGenericRetrieveUpdateDestroyAPIView.as_view(), name='api-post-detail-generics-allfunction'),
 
+    path('post-viewset/', views.PostViewSet.as_view({'get':'list', 'post':'create'}), name='post-viewset'),
+    path('post-viewset/<int:pk>/detail/', views.PostViewSet.as_view({'get':'retrieve', 'put':'update', 'patch':'partial_update', 'delete':'destroy'}), name='post-viewset'),
+    
     
 ]

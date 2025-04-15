@@ -149,3 +149,32 @@ class PostDetailGenericRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView
     permission_classes = [IsAuthenticated]
     serializer_class = serializers.PostSerializer
     queryset = Post.objects.filter(status=True)
+
+
+from rest_framework import viewsets
+
+class PostViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.PostSerializer
+    queryset = Post.objects.filter(status=True)
+    
+    def list(self, request):
+        serializer = self.serializer_class(self.queryset, many=True)
+        return Response(serializer.data)
+    
+    def retrieve(self, request, pk=None):
+        post_object = get_object_or_404(self.queryset, pk=pk)
+        serializer = self.serializer_class(post_object)
+        return Response(serializer.data)
+    
+    def create(self, request):
+        pass
+    
+    def update(self, request, pk=None):
+        pass
+    
+    def partial_update(self, request, pk=None):
+        pass
+    
+    def destroy(self, request, pk=None):
+        pass
