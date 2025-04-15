@@ -65,4 +65,26 @@ class PostListAPIView (APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+    
+
+class PostDetailAPIView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    serializer_class = serializers.PostSerializer
+    
+    def get(self, request, id):
+        post = get_object_or_404(Post, pk=id, status=True)
+        serializer = self.serializer_class(post)
+        return Response(serializer.data)
+    
+    def put(self, request, id):
+        post = get_object_or_404(Post, pk=id, status=True)
+        serializer = self.serializer_class(post, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+    
+    def delete(self, request, id):
+        post = get_object_or_404(Post, pk=id, status=True)
+        post.delete()
+        return Response({"detail":"item removed successfuly"}, status=status.HTTP_204_NO_CONTENT)
 
