@@ -53,7 +53,8 @@ from rest_framework.views import APIView
 
 
 class PostListAPIView (APIView):
-    
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.PostSerializer
     def get(self, request):
         posts = Post.objects.filter(status=True)
         serializer = serializers.PostSerializer(posts, many=True)
