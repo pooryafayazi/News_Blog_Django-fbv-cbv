@@ -10,7 +10,7 @@ from ...models import Post
 
 
 @api_view(["Get", "POST"])
-@permission_classes([IsAuthenticatedOrReadOnly])
+@permission_classes([IsAuthenticated])
 def api_post_list(request):
     if request.method == "GET":        
         posts = Post.objects.filter(status=True)
@@ -23,6 +23,7 @@ def api_post_list(request):
         return Response(serializer.data)
     
 @api_view(["Get", "PUT", "DELETE"])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def api_post_detail(request, id):
     # try:
         # post = Post.objects.get(pk=id)
