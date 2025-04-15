@@ -10,7 +10,9 @@ from ...models import Post
 
 @api_view()
 def api_post_list(request):
-    return Response({"Name":"Poorya"})
+    posts = Post.objects.filter(status=True)
+    serializer = serializers.PostSerializer(posts, many=True)
+    return Response(serializer.data)
 
 
 @api_view()
@@ -25,7 +27,7 @@ def api_post_detail(request, id):
     # except Post.DoesNotExist:
         # return Response({"detail": "post does not exist!"}, status=status.HTTP_404_NOT_FOUND)
 
-    post = get_object_or_404(Post, pk=id)
+    post = get_object_or_404(Post, pk=id, status=True)
     serializer = serializers.PostSerializer(post)
     return Response(serializer.data)
 
