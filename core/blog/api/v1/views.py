@@ -20,7 +20,7 @@ def api_post_list(request):
         serializer.save()
         return Response(serializer.data)
     
-@api_view(["Get", "PUT"])
+@api_view(["Get", "PUT", "DELETE"])
 def api_post_detail(request, id):
     # try:
         # post = Post.objects.get(pk=id)
@@ -40,6 +40,9 @@ def api_post_detail(request, id):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+    elif request.method == "DELETE":
+        post.delete()
+        return Response({"detail":"item removed successfuly"}, status=status.HTTP_204_NO_CONTENT)
         
 
 
