@@ -183,12 +183,14 @@ class PostViewSet(viewsets.ViewSet):
 
 
 from .permissions import IsOwnerOrReadOnly
-
+from django_filters.rest_framework import DjangoFilterBackend
 
 class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = serializers.PostSerializer
     queryset = Post.objects.filter(status=True)
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['author', 'category', 'status']
 
 
 class CategoryModelViewSet(viewsets.ModelViewSet):
