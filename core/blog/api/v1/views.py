@@ -46,8 +46,22 @@ def api_post_detail(request, id):
     elif request.method == "DELETE":
         post.delete()
         return Response({"detail":"item removed successfuly"}, status=status.HTTP_204_NO_CONTENT)
-        
 
 
 
+from rest_framework.views import APIView
+
+
+class PostListAPIView (APIView):
+    
+    def get(self, request):
+        posts = Post.objects.filter(status=True)
+        serializer = serializers.PostSerializer(posts, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = serializers.PostSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
