@@ -12,10 +12,11 @@ from ...models import Post, Category
 
 
 class PostSerializer(serializers.ModelSerializer):
-    
+    snippet = serializers.ReadOnlyField(source='get_snippet')
+    relative_url = serializers.URLField(source='get_absolute_api_url')
     class Meta:
         model = Post
-        fields = ["id", "status", "image", "title", "content", "category", "created_date", "updated_date"]
+        fields = ["id", "status", "image", "title", "content", "snippet", "category", "relative_url", "created_date", "updated_date"]
 
 
 class CategorySerializer(serializers.ModelSerializer):
