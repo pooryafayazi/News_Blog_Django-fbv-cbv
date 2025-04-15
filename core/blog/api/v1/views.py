@@ -88,3 +88,43 @@ class PostDetailAPIView(APIView):
         post.delete()
         return Response({"detail":"item removed successfuly"}, status=status.HTTP_204_NO_CONTENT)
 
+
+
+from rest_framework.generics import GenericAPIView, ListAPIView, ListCreateAPIView
+from rest_framework import mixins
+
+
+
+class PostListGenericAPIView (GenericAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.PostSerializer        
+    queryset = Post.objects.filter(status=True)
+    def get(self, request):
+        queryset = self.get_queryset()
+        serializer = serializers.PostSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = serializers.PostSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+
+
+class PostListGenericAPIViewMixins (GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.PostSerializer
+    queryset = Post.objects.filter(status=True)
+          
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class PostListGenericsListCreateAPIView(ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.PostSerializer
+    queryset = Post.objects.filter(status=True)
