@@ -15,7 +15,7 @@ class PostSerializer(serializers.ModelSerializer):
     snippet = serializers.ReadOnlyField(source='get_snippet')
     relative_url = serializers.URLField(source='get_absolute_api_url')
     absolute_url = serializers.SerializerMethodField()
-    
+    category = serializers.SlugRelatedField(many=False, slug_field='name', queryset=Category.objects.all())
     class Meta:
         model = Post
         fields = ["id", "status", "image", "title", "content", "snippet", "category", "relative_url", "absolute_url", "created_date", "updated_date"]
