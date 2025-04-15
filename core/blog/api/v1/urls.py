@@ -15,6 +15,8 @@ urlpatterns = [
     path('post-generics/', views.PostListGenericAPIView.as_view(), name='api-post-list-generics'),
     path('post-generics-mixins/', views.PostListGenericAPIViewMixins.as_view(), name='api-post-list-generics-mixins'),
     path('post-generics-listcreateapiview/', views.PostListGenericsListCreateAPIView.as_view(), name='api-post-list-listcreateapiview'),
+    path('post-generics/<int:pk>/detail/', views.PostDetailGenericAPIView.as_view(), name='api-post-detail-generics'),
+    path('post-generics-allfunction/<int:pk>/detail/', views.PostDetailGenericRetrieveUpdateDestroyAPIView.as_view(), name='api-post-detail-generics-allfunction'),
 
     
 ]

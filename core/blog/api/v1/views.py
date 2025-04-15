@@ -90,7 +90,7 @@ class PostDetailAPIView(APIView):
 
 
 
-from rest_framework.generics import GenericAPIView, ListAPIView, ListCreateAPIView
+from rest_framework.generics import GenericAPIView, ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import mixins
 
 
@@ -125,6 +125,27 @@ class PostListGenericAPIViewMixins (GenericAPIView, mixins.ListModelMixin, mixin
 
 
 class PostListGenericsListCreateAPIView(ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.PostSerializer
+    queryset = Post.objects.filter(status=True)
+    
+
+class PostDetailGenericAPIView(GenericAPIView, mixins.RetrieveModelMixin, mixins.UpdateModelMixin,  mixins.DestroyModelMixin):
+    permission_classes = [IsAuthenticated]
+    serializer_class = serializers.PostSerializer
+    queryset = Post.objects.filter(status=True)
+    
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+    
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+    
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+class PostDetailGenericRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = serializers.PostSerializer
     queryset = Post.objects.filter(status=True)
