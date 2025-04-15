@@ -151,7 +151,9 @@ class PostDetailGenericRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView
     queryset = Post.objects.filter(status=True)
 
 
+
 from rest_framework import viewsets
+
 
 class PostViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
@@ -180,13 +182,16 @@ class PostViewSet(viewsets.ViewSet):
         pass
 
 
+from .permissions import IsOwnerOrReadOnly
+
+
 class PostModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = serializers.PostSerializer
     queryset = Post.objects.filter(status=True)
 
 
 class CategoryModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = serializers.CategorySerializer
     queryset = Category.objects.all()

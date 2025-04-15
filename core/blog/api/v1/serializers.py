@@ -22,7 +22,7 @@ class PostSerializer(serializers.ModelSerializer):
     absolute_url = serializers.SerializerMethodField()
     class Meta:
         model = Post
-        fields = ["id", "author", "status", "image", "title", "content", "snippet", "category", "relative_url", "absolute_url", "created_date", "updated_date"]
+        fields = ["id", "author", "status", "image", "title", "content", "snippet", "category", "relative_url", "absolute_url", "published_date", "created_date", "updated_date"]
         read_only_fields = ["author"]
         
     def get_absolute_url(self, obj):
