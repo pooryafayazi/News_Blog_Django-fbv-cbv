@@ -14,11 +14,16 @@ from ...models import Post, Category
 class PostSerializer(serializers.ModelSerializer):
     snippet = serializers.ReadOnlyField(source='get_snippet')
     relative_url = serializers.URLField(source='get_absolute_api_url')
+    absolute_url = serializers.SerializerMethodField()
+    
     class Meta:
         model = Post
-        fields = ["id", "status", "image", "title", "content", "snippet", "category", "relative_url", "created_date", "updated_date"]
+        fields = ["id", "status", "image", "title", "content", "snippet", "category", "relative_url", "absolute_url", "created_date", "updated_date"]
 
-
+    def get_absolute_url(self, obj):
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.pk)
+        
 class CategorySerializer(serializers.ModelSerializer):
     
     class Meta:
