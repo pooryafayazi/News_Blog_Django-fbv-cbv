@@ -7,6 +7,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import get_object_or_404
 from mail_templated import send_mail, EmailMessage
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 from . import serializers
 from ...models import User, Profile
@@ -91,10 +93,19 @@ class ProfileAPIView(generics.RetrieveUpdateAPIView):
 class TestEmailSend(generics.GenericAPIView):
     
     def post(self, request, *args, **kwargs):
-        # send_mail('email/send_mail.tpl', {'name': 'poorya'}, 'admin@admin.com', ['poorya152@gmail.com'])
-        email_obj = EmailMessage('email/send_mail.tpl', {'name': 'poorya'}, 'admin@admin.com', to=['poorya152@gmail.com'])
+        self.email = "poorya2@poorya2.com"
+        user_obj = get_object_or_404(User, email = self.email)
+        # send_mail('email/send_mail.tpl', {'name': 'poorya'}, 'admin@admin.com', [self.email])
+        
+        token = self.get_tokens_for_user(user_obj)
+        
+        email_obj = EmailMessage('email/send_mail.tpl', {'token': token}, 'admin@admin.com', to=[self.email])
         EmailThread(email_obj).start()
-        return Response('email sent.')
-    
-    
+        
+        return Response('email sent.')    
+
+    def get_tokens_for_user(self, user):
+        refresh = RefreshToken.for_user(user)
+        return str(refresh.access_token)
+
     
