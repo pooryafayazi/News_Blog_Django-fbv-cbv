@@ -4,6 +4,8 @@ from django.core import exceptions
 from django.contrib.auth import authenticate
 from django.utils.translation import gettext_lazy as _
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.shortcuts import get_object_or_404
+
 from ...models import User, Profile
 
 
@@ -102,3 +104,19 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['id', 'email', 'first_name', 'last_name', 'description', 'image']
+        
+        
+class ActivationResendSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+    
+    def validate(self, attrs):
+        email = attrs.get('email')
+        try:
+            user_obj = User.objects.get(email=email)
+        except User.DoesNotExist:
+            raise serializers.ValidationError({'details':'the email does not exist!'})
+        if user_obj.is_verified:
+            raise serializers.ValidationError({'details':'the user has already been verified!'})
+
+        attrs['user'] = user_obj
+        return super().validate(attrs)
