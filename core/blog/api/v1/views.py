@@ -194,6 +194,7 @@ class PostModelViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.filter(status=True)
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['author', 'category', 'status']
+    # filterset_fields = {'author':['exact'], 'category':['exact', 'in'], 'status':['exact']}
     search_fields = ['title', 'content']
     ordering_fields = ['published_date']
     pagination_class = CustomPagination
