@@ -186,6 +186,8 @@ from .permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 
+from .paginations import CustomPagination
+
 class PostModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = serializers.PostSerializer
@@ -194,6 +196,7 @@ class PostModelViewSet(viewsets.ModelViewSet):
     filterset_fields = ['author', 'category', 'status']
     search_fields = ['title', 'content']
     ordering_fields = ['published_date']
+    pagination_class = CustomPagination
 
 
 class CategoryModelViewSet(viewsets.ModelViewSet):
