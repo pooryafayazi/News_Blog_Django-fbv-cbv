@@ -22,7 +22,7 @@ urlpatterns = [
     
     
     # change password
-    
+    path('change-password/', views.ChangePasswordAPIView.as_view(), name='change-password'),
     # reset password
     
     # login token
