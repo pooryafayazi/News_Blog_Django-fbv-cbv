@@ -44,10 +44,25 @@ services:
     depends_on:
       - db
       - redis
+  
+  smtp4dev:
+    image: rnwood/smtp4dev:v3
+    restart: always
+    ports:
+      - '5000:80' # the port the web interface
+      - '25:25' # the port the SMTP server
+      - '143:143' # the port the IMAP server
+    volumes:      
+        - smtp4dev-data:/smtp4dev # This is where smtp4dev stores the database..
+    environment:
+      - ServerOptions__Urls=http://*:80
+      #Specifies the server hostname. Used in auto-generated TLS certificate if enabled.
+      - ServerOptions__HostName=smtp4dev
 
 volumes:
   postgres_data:
   redis_data:
+  smtp4dev-data:
 
 
 

@@ -25,6 +25,11 @@ urlpatterns = [
     # profile
     path('profile/', views.ProfileAPIView.as_view(), name='profile'),
     
+    # activation
+    path('test-emailconfirm/', views.TestEmailSend.as_view(), name=''),
+    # path('activation/confirm/', views..as_view(), name=''),
+    # path('activation/resend/', views..as_view(), name=''),
+    
     
     
 ]

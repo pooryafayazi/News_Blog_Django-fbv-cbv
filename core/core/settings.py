@@ -150,8 +150,20 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# email configuration
+# EMAIL_BACKEND = 'django.core.email.backends.console.Email.Backend'
+
+# setting smtp4dev container
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'smtp4dev'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 25
+
 
 # STMP config form email settings
+"""
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587  #  465  SSL
@@ -160,6 +172,7 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'webit.test.2024@gmail.com'
 EMAIL_HOST_PASSWORD = 'gpst abpb kgmy yerx'
 DEFAULT_FROM_EMAIL = 'EMAIL_HOST_USER'
+"""
 
 
 # django debug toolbar for docker usage
