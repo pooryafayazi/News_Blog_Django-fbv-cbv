@@ -6,11 +6,11 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.shortcuts import get_object_or_404
-from mail_templated import send_mail
+from mail_templated import send_mail, EmailMessage
 
 from . import serializers
 from ...models import User, Profile
-
+from ..utils import EmailThread
 
 class RegistrationAPIView(generics.GenericAPIView):
     serializer_class = serializers.RegistraionSerializer
@@ -91,7 +91,9 @@ class ProfileAPIView(generics.RetrieveUpdateAPIView):
 class TestEmailSend(generics.GenericAPIView):
     
     def post(self, request, *args, **kwargs):
-        send_mail('email/send_mail.tpl', {'name': 'poorya'}, 'admin@admin.com', ['poorya152@gmail.com'])
+        # send_mail('email/send_mail.tpl', {'name': 'poorya'}, 'admin@admin.com', ['poorya152@gmail.com'])
+        email_obj = EmailMessage('email/send_mail.tpl', {'name': 'poorya'}, 'admin@admin.com', to=['poorya152@gmail.com'])
+        EmailThread(email_obj).start()
         return Response('email sent.')
     
     
