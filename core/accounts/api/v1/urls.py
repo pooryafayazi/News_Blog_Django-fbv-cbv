@@ -8,7 +8,8 @@ app_name = "api-v1"
 urlpatterns = [
     # registration
     path('registration/', views.RegistrationAPIView.as_view(), name='registration'),
-    path('token/login/', ObtainAuthToken.as_view(), name='token-login')
+    path('token/login/', ObtainAuthToken.as_view(), name='token-login'),
+    path('token-custom/login/', views.CustomObtainAuthToken.as_view(), name='token-custom-login'),
     
     # change password
     
