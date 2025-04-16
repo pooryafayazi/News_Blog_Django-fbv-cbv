@@ -17,17 +17,14 @@ urlpatterns = [
     path('jwt/create/', TokenObtainPairView.as_view(), name='jwt-token-create'),
     path('jwt/refresh/', TokenRefreshView.as_view(), name='jwt-token-refresh'),
     path('jwt/verify/', TokenVerifyView.as_view(), name='jwt-token-verify'),
-    path('jwt-custom/create/', views.CustomTokenObtainPairView.as_view(), name='jwt-token-custom-create'),
-    
-    
+    path('jwt-custom/create/', views.CustomTokenObtainPairView.as_view(), name='jwt-token-custom-create'),    
     
     # change password
     path('change-password/', views.ChangePasswordAPIView.as_view(), name='change-password'),
-    # reset password
     
-    # login token
+    # profile
+    path('profile/', views.ProfileAPIView.as_view(), name='profile'),
     
-    # login jwt
     
     
 ]
