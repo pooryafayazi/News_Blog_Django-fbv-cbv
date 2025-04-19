@@ -7,8 +7,8 @@ from django.dispatch import receiver
 # Create your models here.
 
 
-
 class UserManager(BaseUserManager):
+    
     def create_user(self, email, password, **extra_fields):
         if not email:
             raise ValueError(_('The Email field must be set'))
@@ -17,6 +17,7 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save(using=self._db)
         return user
+    
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
@@ -28,6 +29,7 @@ class UserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError(_('Superuser must have is_superuser=True'))
         return self.create_user(email, password, **extra_fields)
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
@@ -43,9 +45,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     def __str__(self):
         return self.email
-    
-    
 
+    
 class Profile(models.Model):
     user = models.OneToOneField('User', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)

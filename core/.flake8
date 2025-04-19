@@ -9,5 +9,6 @@ exclude =
     .env,
     settings.py,
     __init__.py,
+    test*.py,
     
 extend-ignore = E501, E261, E303
