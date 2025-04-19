@@ -22,8 +22,8 @@ class Post(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     class Meta:
         ordering = ('-created_date',)
-        #verbose_name = "پست"
-        #verbose_name_plural = "پست ها"
+        # verbose_name = "پست"
+        # verbose_name_plural = "پست ها"
     def __str__(self):
         return f'{self.title} - {self.id}'
     
@@ -39,4 +39,4 @@ class Category(models.Model):
     name = models.CharField(max_length=255)
     def __str__(self):
         return self.name
-    
+

@@ -51,25 +51,25 @@ class PostListView(PermissionRequiredMixin ,LoginRequiredMixin, ListView): # it'
     context_object_name = 'posts'
     # paginate_by = 2
     ordering = "-id"
-    
+
     # def get_queryset(self):
     #     posts = Post.objects.filter(status=True).order_by('-id')
     #     return posts
-        
+
 
 class PostDetailView(DetailView):
     model = Post
-    
+
 
 class PostCreateFormView(FormView):
     template_name = "contact.html"
     form_class = PostForm
     success_url = "/blog/post/"
-    
+
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-        
+
 
 class PostCreateView(CreateView):
     model = Post
@@ -96,6 +96,7 @@ class PostDeleteView(DeleteView):
 
 def post_list_view(request):
     return HttpResponse("ok")
+
 
 """
 @api_view()
