@@ -27,6 +27,8 @@ urlpatterns = [
     path('post-httpresponse/', views.post_list_view, name='httpresponse-post-list'),
     # path('post-api-view/', views.api_post_list_view, name='api-post-list'),
     
-    path('api/v1/', include('blog.api.v1.urls'))
+    path('api/v1/', include('blog.api.v1.urls')),
+    
+    path('', views.Indexview.as_view(), name='index'),
     
 ]

@@ -105,3 +105,5 @@ def api_post_list_view(request):
 """
 
 
+class Indexview(ListView):
+    pass
