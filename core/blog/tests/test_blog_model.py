@@ -42,3 +42,22 @@ class TestPostModel(TestCase):
             published_date=datetime.now(),
         )
         self.assertEqual(post_obj.title, 'test')
+    
+
+class TestPostModelWithSetUp(TestCase):
+    
+    def setUp(self):
+        self.user_obj = User.objects.create_user(email='test@gmail.co', password='@Pp123456')
+        self.profile_obj, created  = Profile.objects.get_or_create(user=self.user_obj)
+        
+    def test_create_test_with_valid_data_and_user_setUp(self):
+        post_obj = Post.objects.create(
+            author= self.profile_obj,
+            title='test',
+            content='description',
+            status=True,
+            category=None,
+            published_date=datetime.now(),
+        )
+        self.assertEqual(post_obj.title, 'test')
+        self.assertTrue(Post.objects.filter(pk=post_obj.id).exists())
