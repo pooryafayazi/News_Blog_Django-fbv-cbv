@@ -17,6 +17,7 @@ urlpatterns = [
     path('go-to-itmeter-cbv/', views.RedirectCBV.as_view(), name='redirect-cbv'),
     
     path('post/', views.PostListView.as_view(), name="post-list"),
+    path('post/api/', views.PostListAPIView.as_view(), name="post-list-api"),
     path('post/<int:pk>/', views.PostDetailView.as_view(), name='post-detail'),
     path('post/create-by-formview/', views.PostCreateFormView.as_view(), name='post-create-by-formview'),
     path('post/create-by-creatview/', views.PostCreateView.as_view(), name='post-create-by-creatview'),

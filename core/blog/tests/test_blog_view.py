@@ -5,3 +5,5 @@ TestCase with dumy database
 """
 
 
+from django.test import TestCase, Client
+

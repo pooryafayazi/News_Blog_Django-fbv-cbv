@@ -1,0 +1,8 @@
+{% load static %}
+{% load template_tag %}
+<div class="single-sidebar-widget search-widget">
+    <form class="search-form" action="{% url 'blog:search' %}" method="get">
+        <input placeholder="Search" name="s" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search'" >
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>

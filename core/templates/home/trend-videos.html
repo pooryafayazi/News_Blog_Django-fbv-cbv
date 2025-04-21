@@ -1,0 +1,26 @@
+{% load static %}
+
+<div class="widget">
+    <h2 class="widget-title">Trend Videos</h2>
+    <div class="trend-videos">
+        {% for n in news %}
+
+            <div class="blog-box">
+                <div class="post-media">
+                    <a href="{% url 'homepage:news' news_id=n.id %}" title="">
+                        <img src="{% static 'upload/tech_video_01.jpg' %}" alt="" class="img-fluid">
+                        <div class="hovereffect">
+                            <span class="videohover"></span>
+                        </div><!-- end hover -->
+                    </a>
+                </div><!-- end media -->
+                <div class="blog-meta">
+                    <h4><a href="{% url 'homepage:news' news_id=n.id %}" title="">We prepared the best 10 laptop presentations for
+                            you</a></h4>
+                </div><!-- end meta -->
+            </div><!-- end blog-box -->
+
+            <hr class="invis">
+        {% endfor %}
+    </div><!-- end videos -->
+</div><!-- end widget -->

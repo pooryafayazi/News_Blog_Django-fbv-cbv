@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="custombox clearfix">
+    <h4 class="small-title">You may also like</h4>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-lg-6">
+            <div class="blog-box">
+                <div class="post-media">
+                    <a href="{% url 'blog:single' post_id=post.id %}" title="">
+                        <img src="{% static 'upload/tech_menu_04.jpg' %}" alt="" class="img-fluid">
+                        <div class="hovereffect">
+                            <span class=""></span>
+                        </div><!-- end hover -->
+                    </a>
+                </div><!-- end media -->
+                <div class="blog-meta">
+                    <h4><a href="{% url 'blog:single' post_id=post.id %}" title="">We are guests of ABC Design
+                            Studio</a></h4>
+                    <small><a href="blog-blog.html" title="">Trends</a></small>
+                    <small><a href="blog-blog.html" title="">21 July, 2017</a></small>
+                </div><!-- end meta -->
+            </div><!-- end blog-box -->
+        </div><!-- end col -->
+        {% endfor %}
+        
+    </div><!-- end row -->
+</div><!-- end custom-box -->

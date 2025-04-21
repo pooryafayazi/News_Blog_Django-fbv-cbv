@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load template_tag %}
+{% block content %}
+
+{% include 'blog/header-posts.html' %}
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <div class="page-wrapper">
+                    <div class="blog-top clearfix">
+                        <h4 class="pull-left">Recent Posts <a href="#"><i class="fa fa-rss"></i></a></h4>
+                    </div><!-- end blog-top -->
+                    <div class="blog-list clearfix">
+                        {% for post in posts %}
+                            <div class="blog-box row">
+                                <div class="col-md-4">
+                                    <div class="post-media">
+                                        <a href="{% url 'blog:single' post_id=post.id %}" title="">
+                                            <img src="{{ post.image.url }}" alt="" class="img-fluid">
+                                            <div class="hovereffect"></div>
+                                        </a>
+                                    </div><!-- end media -->
+                                </div><!-- end col -->
+                                <div class="blog-meta big-meta col-md-8">
+                                    <h4><a href="{% url 'blog:single' post_id=post.id %}" title="">{{post.title}}</a></h4>
+                                    <p>{{post.content|truncate_w:100|safe}}</p>
+                                    <small class="firstsmall"><a class="bg-orange" href="#" title="">{{post.topic}}</a></small>
+                                    <small><a href="{% url 'blog:single' post_id=post.id %}" title="">{{post.published_date|date:"d D m Y"}}</a></small>
+                                    <small><a href="{% url 'blog:author' author_username=post.author.username %}" target="_blank" title="">{{post.author}}</a></small>
+                                <!--<small><a href="{{n.source}}" target="_blank" title="">Source</a></small>-->
+                                    <small><a href="{% url 'blog:single' post_id=post.id %}" title=""><i class="fa fa-eye"></i> {{post.counted_views}} Views</a></small>
+                                </div><!-- end meta -->
+                            </div><!-- end blog-box -->
+                            <hr class="invis">
+                        {% endfor %}
+                    </div><!-- end blog-list -->
+                </div><!-- end page-wrapper -->
+                <hr class="invis">
+                {% include 'blog/post-pagination.html' %}
+            </div><!-- end col -->
+
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <div class="sidebar">
+                        {% include 'home/banner-300-600.html' %}
+                        <!-- home/trend-videos.html -->
+                        {% include 'blog/post-search.html' %}
+                        {% include 'blog/popular-posts.html' %}
+                        <!-- home/recent-reviews.html -->
+                        <!-- blog/follow-us.html -->
+                        {% include 'home/banner-1200-1200.html' %}                    
+                </div><!-- end sidebar -->
+            </div><!-- end col-lg-3 -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+{% endblock %}

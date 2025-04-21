@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load template_tag %}
+{% block content %}
+
+{% include 'home/header-news.html' %}
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <div class="page-wrapper">
+                    <div class="blog-top clearfix">
+                        <h4 class="pull-left">Recent News <a href="#"><i class="fa fa-rss"></i></a></h4>
+                    </div><!-- end blog-top -->
+                    <div class="blog-list clearfix">
+                        {% for n in news %}
+                            <div class="blog-box row">
+                                <div class="col-md-4">
+                                    <div class="post-media">
+                                        <a href="{% url 'homepage:news' news_id=n.id %}" title="">
+                                            <img src="{{ n.image.url }}" alt="" class="img-fluid">
+                                            <div class="hovereffect"></div>
+                                        </a>
+                                    </div><!-- end media -->
+                                </div><!-- end col -->
+                                <div class="blog-meta big-meta col-md-8">
+                                    <h4><a href="{% url 'homepage:news' news_id=n.id %}" title="">{{n.title}}</a></h4>
+                                    <p>{{n.content|truncate_w:100|safe}}</p>
+                                    <small class="firstsmall"><a class="bg-orange" href="#" title="">{{n.topic}}</a></small>
+                                    <small><a href="{% url 'homepage:news' news_id=n.id %}" title="">{{n.published_date|date:"d D m Y"}}</a></small>
+                                    <small><a href="{% url 'homepage:author' author=n.author %}" target="_blank" title="">{{n.author}}</a></small>
+                                    <small><a href="{{n.source}}" target="_blank" title="">Source</a></small>
+                                    <small><a href="{% url 'homepage:news' news_id=n.id %}" title=""><i class="fa fa-eye"></i> {{n.counted_views}} Views</a></small>
+                                </div><!-- end meta -->
+                            </div><!-- end blog-box -->
+                            <hr class="invis">
+                        {% endfor %}
+                    </div><!-- end blog-list -->
+                </div><!-- end page-wrapper -->
+                <hr class="invis">
+                
+                </div>
+                {% include 'home/news-pagination.html' %}
+            </div><!-- end col -->
+
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <div class="sidebar">
+                        {% include 'home/banner-300-600.html' %}
+                        <!-- home/trend-videos.html -->
+                        {% include 'home/news-search.html' %}
+                        {% include 'home/popular-news.html' %}
+                        <!-- home/recent-reviews.html -->
+                        <!-- blog/follow-us.html -->
+                        {% include 'home/banner-1200-1200.html' %}                    
+                </div><!-- end sidebar -->
+            </div><!-- end col-lg-3 -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+{% endblock %}

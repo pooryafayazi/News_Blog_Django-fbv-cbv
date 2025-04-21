@@ -1,0 +1,20 @@
+{% load static %}
+{% load template_tag %}
+{% load humanize %} 
+
+<div class="widget">
+    <h2 class="widget-title">Most Viewed News</h2>
+    <div class="blog-list-widget">
+        <div class="list-group">
+            {% for n in news %}
+                <a href="{% url 'homepage:news' news_id=n.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="w-100 justify-content-between">
+                        <img src="{{ n.image.url }}" alt="" class="img-fluid float-left">
+                        <h5 class="mb-1">{{n.title|truncate_w:6|safe}}</h5>
+                        <small style="margin-left:70px">{{n.published_date| naturaltime}}</small>
+                    </div>
+                </a>
+            {% endfor %}            
+        </div>
+    </div><!-- end blog-list -->
+</div><!-- end widget -->

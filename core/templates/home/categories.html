@@ -1,0 +1,20 @@
+{% load static %}
+
+<div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+    <div class="widget">
+        <h2 class="widget-title">Popular Categories</h2>
+        <div class="link-widget">
+            <ul> 
+                {% if Pcategories  %}
+                    {% for cat in Pcategories|slice:"5" %}
+                        <li><a href="{% url 'blog:category' cat_name=cat.name %}">{{cat.name}} <span>{{cat.count}}</span></a></li>
+                    {% endfor %}
+                {% elif Ncategories  %}
+                    {% for cat in Ncategories|slice:"5" %}
+                        <li><a href="{% url 'homepage:category' cat_name=cat.name %}">{{cat.name}} <span>{{cat.count}}</span></a></li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div><!-- end link-widget -->
+    </div><!-- end widget -->
+</div><!-- end col -->
